@@ -10,11 +10,11 @@ app.use(express.json());
 app.use(cors());
 
 const headers = { Authorization: `Bearer ${apiKey}` };
-app.get("/", async (req, res) => {
+app.get("/:id", async (req, res) => {
   try {
     await axios
       .get(
-        `https://lereacteur-bootcamp-api.herokuapp.com/api/deliveroo/menu/`,
+        `https://lereacteur-bootcamp-api.herokuapp.com/api/deliveroo/menu/${req.params.id}`,
         { headers }
       )
       .then((response) => {
