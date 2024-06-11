@@ -10,11 +10,11 @@ app.use(express.json());
 app.use(cors());
 
 const headers = { Authorization: `Bearer ${apiKey}` };
-app.get("/:id", async (req, res) => {
+app.get("/:menu/:city/:street/:name", async (req, res) => {
   try {
     await axios
       .get(
-        `https://lereacteur-bootcamp-api.herokuapp.com/api/deliveroo/menu/${req.params.id}`,
+        `https://lereacteur-bootcamp-api.herokuapp.com/api/deliveroo/${req.params.menu}/${req.params.city}/${req.params.street}/${req.params.name}/?day=${req.query.day}&geohash=${req.query.geohash}&time=${req.query.time}`,
         { headers }
       )
       .then((response) => {
@@ -29,6 +29,7 @@ app.get("/:id", async (req, res) => {
 });
 
 app.all("*", (req, res) => {
+  console.log(req.params)
   try {
     res.status(404).json({ message: "All routes" });
   } catch (error) {
